@@ -30,12 +30,25 @@ namespace dnslib {
         return *this;
     }
 
+    PacketBuilder& PacketBuilder::withRawFlags(uint16_t flags) {
+        packet.header.flags = flags;
+        return *this;
+    }
+
+
 
     PacketBuilder& PacketBuilder::addQuestion(std::string name, QTYPE type) {
         packet.questions.push_back(DNSQuestion(name, type, QCLASS::IN));
         packet.header.qdCount++;
         return *this;
     }
+
+    PacketBuilder& PacketBuilder::addAnswer(std::shared_ptr<ResourceRecord> record) {
+        packet.answers.push_back(record);
+        packet.header.anCount++;
+        return *this;
+    }
+
 
 
     PacketBuilder& PacketBuilder::expectedAnswers(size_t count) {

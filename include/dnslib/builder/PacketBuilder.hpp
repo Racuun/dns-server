@@ -37,9 +37,11 @@ namespace dnslib {
         PacketBuilder& withOpcode(OPCODE op);
         PacketBuilder& withRcode(RCODE rc);
         PacketBuilder& withFlags(PacketFlag flags);
+        PacketBuilder& withRawFlags(uint16_t flags);
 
         PacketBuilder& addQuestion(std::string name, QTYPE type);
-        
+        PacketBuilder& addAnswer(std::shared_ptr<ResourceRecord> record);
+
         // utility
         PacketBuilder& expectedAnswers(size_t count);
 
