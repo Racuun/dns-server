@@ -16,6 +16,8 @@ namespace dnslib {
 
         void serialize(std::vector<uint8_t>& buff) const override;
         std::string toString() const override;
+
+        std::uint32_t getIpAddress() const { return ipAdress; }
     };
 
 }

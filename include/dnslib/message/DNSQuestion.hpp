@@ -37,6 +37,7 @@ namespace dnslib {
 
         QTYPE getType() const { return static_cast<QTYPE>(type); }
         QCLASS getQclass() const { return static_cast<QCLASS>(qclass); }
+        std::string getName() const { return name; }
     };
     
 }

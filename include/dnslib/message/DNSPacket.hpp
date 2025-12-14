@@ -21,6 +21,10 @@ namespace dnslib {
 
         void serialize(std::vector<uint8_t>& buff) const override;
         std::string toString() const override;
+
+        const DNSHeader& getHeader() const { return header; }
+        const std::vector<DNSQuestion>& getQuestions() const { return questions; }
+        const std::vector<std::shared_ptr<ResourceRecord>>& getAnswers() const { return answers; }
     };
 
 }

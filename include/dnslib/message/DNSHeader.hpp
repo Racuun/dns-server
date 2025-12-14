@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../interface/ISerializable.hpp"
+#include <gtest/gtest_prod.h>
 
 namespace dnslib {
 
@@ -22,9 +23,12 @@ namespace dnslib {
     };
 
     class DNSHeader : public ISerializable {
+        FRIEND_TEST(DnsHeaderTest, FlagManipulationWorks);
+        FRIEND_TEST(DnsHeaderTest, SetAndGetId);
+
         friend class PacketBuilder;
     private:
-        uint16_t id;
+        uint16_t id = 0;
         uint16_t flags = 0;
         uint16_t qdCount = 0;
         uint16_t anCount = 0;
@@ -41,6 +45,7 @@ namespace dnslib {
         static constexpr uint16_t CD_MASK     = 1 << 5;
         static constexpr uint16_t RCODE_MASK  = 0x000F;
 
+        void setId(uint16_t i) { id = i; }
         void setResponse(bool r) { flags = r ? flags | QR_MASK : flags & ~QR_MASK; }
         void setQuery(bool q) { flags = q ? flags & ~QR_MASK : flags | QR_MASK; }
         void setAuthoritative(bool a) { flags = a ? flags | AA_MASK : flags & ~AA_MASK; }
@@ -65,8 +70,9 @@ namespace dnslib {
         void serialize(std::vector<uint8_t>& buff) const override;
         std::string toString() const override;
 
-        bool isRespone() const { return flags & QR_MASK; }
-        bool isQuery() const { return !isRespone(); }
+        uint16_t getId() const { return id; }
+        bool isResponse() const { return flags & QR_MASK; }
+        bool isQuery() const { return !isResponse(); }
         bool authAns() const { return flags & AA_MASK; }
         bool truncation() const { return flags & TC_MASK; }
         bool recursionDesired() const { return flags & RD_MASK; }

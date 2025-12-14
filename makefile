@@ -13,3 +13,7 @@ build:
 
 run:
 	$ cd build && ./dns-server
+
+.PHONY: test
+test:
+	$ cd build && ctest --output-on-failure
