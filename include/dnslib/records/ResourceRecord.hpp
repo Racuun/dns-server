@@ -5,6 +5,17 @@
 
 namespace dnslib {
 
+    enum class RTYPE : uint16_t {
+        A = 1,
+        NS = 2,
+        PTR = 12,
+        HINFO = 13,
+        MINFO = 14,
+        MX = 15,
+        TXT = 16
+    };
+    
+
     class ResourceRecord : public ISerializable {
     protected:
         std::string name;
@@ -15,7 +26,7 @@ namespace dnslib {
             : name(n), type(t), ttl(ttl) {}
 
         virtual ~ResourceRecord() = default;
-        virtual void serialize(std::vector<uint8_t>& buff) const override;
+        virtual void serialize(std::vector<uint8_t>& buff) const override = 0;
     };
 
 }
