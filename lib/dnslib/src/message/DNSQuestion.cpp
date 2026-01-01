@@ -1,5 +1,5 @@
-#include "dnslib/message/DNSQuestion.hpp"
-#include "dnslib/utils/utils.hpp"
+#include "message/DNSQuestion.hpp"
+#include "utils/utils.hpp"
 
 
 namespace dnslib {

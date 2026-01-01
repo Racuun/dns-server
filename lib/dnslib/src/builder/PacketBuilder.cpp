@@ -1,4 +1,4 @@
-#include "dnslib/builder/PacketBuilder.hpp"
+#include "builder/PacketBuilder.hpp"
 
 namespace dnslib {
     PacketBuilder::PacketBuilder(uint16_t id) {

@@ -1,4 +1,4 @@
-#include "dnslib/utils/utils.hpp"
+#include "utils/utils.hpp"
 #include <stdexcept>
 
 namespace dnslib::utils {

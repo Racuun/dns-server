@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 #include <arpa/inet.h>
-#include "dnslib/dns.hpp"
+#include "dns.hpp"
 
 using namespace dnslib;
 

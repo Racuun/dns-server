@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "dnslib/dns.hpp"
+#include "dns.hpp"
 
 using namespace dnslib;
 

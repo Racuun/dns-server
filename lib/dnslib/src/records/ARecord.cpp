@@ -1,5 +1,5 @@
-#include "dnslib/records/ARecord.hpp"
-#include "dnslib/utils/utils.hpp"
+#include "records/ARecord.hpp"
+#include "utils/utils.hpp"
 #include <arpa/inet.h>
 #include <sstream>
 #include <netinet/in.h>

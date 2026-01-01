@@ -1,6 +1,6 @@
-#include "dnslib/parser/RecordFactory.hpp"
-#include "dnslib/records/ARecord.hpp"
-#include "dnslib/records/ResourceRecord.hpp"
+#include "parser/RecordFactory.hpp"
+#include "records/ARecord.hpp"
+#include "records/ResourceRecord.hpp"
 #include <cstddef>
 #include <cstdint>
 

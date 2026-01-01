@@ -10,7 +10,7 @@
  * This header is provided for ease of use. By including this single file, developers
  * can get access to all the core functionality of the DNS library, including packet
  * building, parsing, and data structures. For more granular control over included
-* code, it is recommended to include the specific headers directly.
+ * code, it is recommended to include the specific headers directly.
  */
 
 #pragma once

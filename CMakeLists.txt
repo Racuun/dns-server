@@ -10,13 +10,13 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wpedantic")
 
 # --- dnslib ---
 # Gather all library source files
-file(GLOB_RECURSE DNSLIB_SOURCES CONFIGURE_DEPENDS "src/dnslib/*.cpp")
+file(GLOB_RECURSE DNSLIB_SOURCES CONFIGURE_DEPENDS "lib/dnslib/src/*.cpp")
 
 # Create the library
 add_library(dnslib ${DNSLIB_SOURCES})
 
 # Make include directories available to consumers of the library
-target_include_directories(dnslib PUBLIC include)
+target_include_directories(dnslib PUBLIC lib/dnslib/include)
 
 
 # --- Executable ---

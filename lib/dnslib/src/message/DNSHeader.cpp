@@ -1,5 +1,5 @@
-#include "dnslib/message/DNSHeader.hpp"
-#include "dnslib/utils/utils.hpp"
+#include "message/DNSHeader.hpp"
+#include "utils/utils.hpp"
 #include <cstdint>
 #include <string>
 

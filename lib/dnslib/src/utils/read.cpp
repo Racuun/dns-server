@@ -1,4 +1,4 @@
-#include "dnslib/utils/read.hpp"
+#include "utils/read.hpp"
 #include <cstddef>
 #include <cstdint>
 #include <stdexcept>

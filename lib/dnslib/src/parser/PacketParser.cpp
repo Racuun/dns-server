@@ -1,8 +1,8 @@
-#include "dnslib/parser/PacketParser.hpp"
-#include "dnslib/builder/PacketBuilder.hpp"
-#include "dnslib/parser/RecordFactory.hpp"
-#include "dnslib/message/DNSPacket.hpp"
-#include "dnslib/utils/read.hpp"
+#include "parser/PacketParser.hpp"
+#include "builder/PacketBuilder.hpp"
+#include "parser/RecordFactory.hpp"
+#include "message/DNSPacket.hpp"
+#include "utils/read.hpp"
 
 
 namespace dnslib {

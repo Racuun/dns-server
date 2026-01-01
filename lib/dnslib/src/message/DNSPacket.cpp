@@ -1,4 +1,4 @@
-#include "dnslib/message/DNSPacket.hpp"
+#include "message/DNSPacket.hpp"
 #include <string>
 
 namespace dnslib {
