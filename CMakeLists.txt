@@ -8,13 +8,27 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 # Set compiler flags for warnings
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wpedantic")
 
-# Recursively find all .cpp files in the src directory and its subdirectories
-file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS "src/*.cpp" "include/*.h*")
+# --- dnslib ---
+# Gather all library source files
+file(GLOB_RECURSE DNSLIB_SOURCES CONFIGURE_DEPENDS "lib/dnslib/src/*.cpp")
 
-# Tell CMake where to find header files
-include_directories(src include)
+# Create the library
+add_library(dnslib ${DNSLIB_SOURCES})
 
-add_executable(${PROJECT_NAME} ${SOURCES})
+# Make include directories available to consumers of the library
+target_include_directories(dnslib PUBLIC lib/dnslib/include)
+
+
+# --- Executable ---
+add_executable(${PROJECT_NAME} src/main.cpp)
+target_link_libraries(${PROJECT_NAME} PRIVATE dnslib)
+
 
 # Set the output directory for the executable (e.g., build/bin/)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+
+
+# --- Tests ---
+enable_testing()
+add_subdirectory(tests)

@@ -1,0 +1,43 @@
+#include "parser/PacketParser.hpp"
+#include "builder/PacketBuilder.hpp"
+#include "parser/RecordFactory.hpp"
+#include "message/DNSPacket.hpp"
+#include "utils/read.hpp"
+
+
+namespace dnslib {
+
+    DNSPacket PacketParser::parse(const std::vector<uint8_t>& rawData) {
+        utils::ByteReader reader(rawData);
+
+        PacketBuilder builder;
+
+        builder.setId(reader.readU16());
+
+        uint16_t flags = reader.readU16();
+        builder.withRawFlags(flags);
+
+        uint16_t qdCount = reader.readU16();
+        uint16_t anCount = reader.readU16();
+        uint16_t nsCount = reader.readU16();
+        uint16_t arCount = reader.readU16();
+
+        builder.expectedAnswers(anCount);
+
+        for (int i=0; i<qdCount; i++) {
+            std::string name = reader.readDomain();
+            QTYPE type = static_cast<QTYPE>(reader.readU16());
+            uint16_t qclass = reader.readU16();
+
+            builder.addQuestion(name, type);
+        }
+
+        for (int i=0; i<anCount; i++) {
+            auto record = RecordFactory::create(reader);
+            builder.addAnswer(record);
+        }
+
+
+        return builder.build();
+    }
+}
