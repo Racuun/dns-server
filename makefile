@@ -14,6 +14,9 @@ build:
 run:
 	$ cd build && ./dns-server
 
+sudo-run:
+	$ cd build && sudo ./dns-server
+
 .PHONY: test
 test:
 	$ cd build && ctest --output-on-failure
