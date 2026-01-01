@@ -6,6 +6,15 @@
 #include "dns.hpp"
 
 
+#include <thread>
+#include <functional>
+
+#include "message/DNSMessage.hpp"
+#include "utils/etsqueue.hpp"
+#include "connector.hpp"
+#include "resolver.cpp"
+
+
 int main(int, char**){
 
     std::ifstream file("../query_google_a.bin", std::ios::binary);
@@ -43,6 +52,22 @@ int main(int, char**){
 
     dnslib::DNSPacket parsed2 = dnslib::PacketParser::parse(response_buffer);
     std::cout << parsed2.toString();
+
+
+    // --- DNS TEST ---
+    std::cout << "--- DNS Server Starting ---" << std::endl;
+
+    utils::ETSQueue<dnslib::DNSMessageL> qIn;
+    utils::ETSQueue<dnslib::DNSMessageL> qOut;
+
+    std::thread logicThread(testThread, std::ref(qIn), std::ref(qOut));
+    std::cout << "[Main] Logic thread started." << std::endl;
+
+    std::thread netThread(networkThread, 53, std::ref(qIn), std::ref(qOut));
+    std::cout << "[Main] Network thread started on port 53." << std::endl;
+
+    logicThread.join();
+    netThread.join();
 
     return 0;
 }
