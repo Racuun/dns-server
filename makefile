@@ -2,7 +2,6 @@ BUILD_DIR = build
 
 .PHONY: all clean project build run test
 
-
 clean:
 	rm -rf $(BUILD_DIR)/*
 
