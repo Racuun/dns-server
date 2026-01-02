@@ -1,6 +1,6 @@
 #include "dns.hpp"
-#include "message/DNSMessage.hpp"
 #include "utils/etsqueue.hpp"
+#include "utils/log.hpp"
 #include <exception>
 #include <iostream>
 
@@ -27,7 +27,7 @@ inline void resolverWorker(
             //outputQueue.push(std::move(output));
 
         } catch (const std::exception& e) {
-            std::cerr << "Error" << e.what() << "\n";
+            LOG_ERR("Error " + std::string(e.what()));
         }
     }
 

@@ -3,6 +3,7 @@
 #include "dns.hpp"
 #include "message/DNSMessage.hpp"
 #include "utils/etsqueue.hpp"
+#include "utils/log.hpp"
 #include <cstdint>
 #include <cstdio>
 #include <iostream>
@@ -35,7 +36,7 @@ void networkThread(int port,
 
     auto _bind = bind(sockfd, (sockaddr*)&serverAddr, sizeof(serverAddr));
     if (_bind < 0) {
-        perror("Bind failed!");
+        LOG_ERR("Bind failed!");
         return;
     }
 
@@ -46,7 +47,7 @@ void networkThread(int port,
     ev.data.fd = sockfd;
     auto _epoll_ctl = epoll_ctl(epollfd, EPOLL_CTL_ADD, sockfd, &ev);
     if (_epoll_ctl == -1) {
-        perror("Epoll ctl failed!");
+        LOG_ERR("Epoll ctl failed!");
         return;
     }
 
@@ -56,11 +57,11 @@ void networkThread(int port,
     ev.data.fd = qFd;
     _epoll_ctl = epoll_ctl(epollfd, EPOLL_CTL_ADD, qFd, &ev);
     if (_epoll_ctl == -1) {
-        perror("Epoll ctl failed!");
+        LOG_ERR("Epoll ctl failed!");
         return;
     }
 
-    std::cout<<"[Network] Started UPD on socket " << port << "\n";
+    LOG_INFO("Started UDP on socket " + std::to_string(sockfd) + " port " + std::to_string(port));
 
     while (true) {
         // timeout

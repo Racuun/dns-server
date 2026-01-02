@@ -13,58 +13,24 @@
 #include "utils/etsqueue.hpp"
 #include "connector.hpp"
 #include "resolver.cpp"
+#include "utils/log.hpp"
 
 
 int main(int, char**){
+    // --- DNS START ---
 
-    std::ifstream file("../query_google_a.bin", std::ios::binary);
+    utils::Logger::get().config(TARGET_CONSOLE, utils::LogLevel::DEBUG);
 
-    std::vector<uint8_t> buffer((std::istreambuf_iterator<char>(file)), {});
-
-    // Packet::process_packet(buffer.data(), buffer.size());
-
-
-    // Packet::PacketBuilder builder;
-    // builder.build_header(Packet::OPCODE::QUERY, 1);
-    // builder.add_question("google.com", Packet::QTYPE::A, 1);
-    // Packet::DNSPacket* packet = builder.get_packet();
-    // std::cout << std::hex << builder.serialize_packet(packet);
-
-    dnslib::DNSPacket packet = dnslib::PacketBuilder(1234)
-                                .withOpcode(dnslib::OPCODE::STATUS)
-                                .withFlags(dnslib::PacketFlag::NONE)
-                                .withRcode(dnslib::RCODE::NOERROR)
-                                .addQuestion("google.com", dnslib::QTYPE::A)
-                                .build();
-
-    std::cout << packet.toString();
-
-    std::cout << "\n\n READ PACKET: \n";
-
-    dnslib::DNSPacket parsed = dnslib::PacketParser::parse(buffer);
-    std::cout << parsed.toString();
-
-
-    unsigned char rawData[] = {0xc8, 0x5e, 0x81, 0x80, 0x0, 0x1, 0x0, 0x6, 0x0, 0x0, 0x0, 0x1, 0x6, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x3, 0x63, 0x6f, 0x6d, 0x0, 0x0, 0x1, 0x0, 0x1, 0xc0, 0xc, 0x0, 0x1, 0x0, 0x1, 0x0, 0x0, 0x0, 0x9f, 0x0, 0x4, 0x8e, 0xfa, 0x6d, 0x66, 0xc0, 0xc, 0x0, 0x1, 0x0, 0x1, 0x0, 0x0, 0x0, 0x9f, 0x0, 0x4, 0x8e, 0xfa, 0x6d, 0x8a, 0xc0, 0xc, 0x0, 0x1, 0x0, 0x1, 0x0, 0x0, 0x0, 0x9f, 0x0, 0x4, 0x8e, 0xfa, 0x6d, 0x64, 0xc0, 0xc, 0x0, 0x1, 0x0, 0x1, 0x0, 0x0, 0x0, 0x9f, 0x0, 0x4, 0x8e, 0xfa, 0x6d, 0x8b, 0xc0, 0xc, 0x0, 0x1, 0x0, 0x1, 0x0, 0x0, 0x0, 0x9f, 0x0, 0x4, 0x8e, 0xfa, 0x6d, 0x71, 0xc0, 0xc, 0x0, 0x1, 0x0, 0x1, 0x0, 0x0, 0x0, 0x9f, 0x0, 0x4, 0x8e, 0xfa, 0x6d, 0x65, 0x0, 0x0, 0x29, 0x4, 0xd0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0};
-    std::vector<uint8_t> response_buffer(rawData, rawData + sizeof(rawData));
-
-    std::cout << "\n\n READ PACKET 2: \n";
-
-    dnslib::DNSPacket parsed2 = dnslib::PacketParser::parse(response_buffer);
-    std::cout << parsed2.toString();
-
-
-    // --- DNS TEST ---
-    std::cout << "--- DNS Server Starting ---" << std::endl;
+    LOG_INFO("--- DNS Server Starting ---");
 
     utils::ETSQueue<dnslib::DNSMessageL> qIn;
     utils::ETSQueue<dnslib::DNSMessageL> qOut;
 
     std::thread logicThread(testThread, std::ref(qIn), std::ref(qOut));
-    std::cout << "[Main] Logic thread started." << std::endl;
+    LOG_INFO("Logic thread started");
 
     std::thread netThread(networkThread, 53, std::ref(qIn), std::ref(qOut));
-    std::cout << "[Main] Network thread started on port 53." << std::endl;
+    LOG_INFO("Network thread started");
 
     logicThread.join();
     netThread.join();

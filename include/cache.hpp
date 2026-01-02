@@ -12,7 +12,7 @@
 
 struct cacheKey {
     std::string name;
-    dnslib::RTYPE type;
+    dnslib::QTYPE type;
 
     bool operator==(const cacheKey& other) const {
         return name == other.name && type == other.type;

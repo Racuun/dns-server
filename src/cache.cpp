@@ -1,7 +1,9 @@
 #include "cache.hpp"
+#include "utils/log.hpp"
 
 #include <cstdint>
 #include <optional>
+#include <string>
 #include <vector>
 
 
@@ -15,6 +17,7 @@ std::optional<std::shared_ptr<std::vector<dnslib::ResourceRecord>>> TLRUCache::g
     if (std::chrono::steady_clock::now() > it->second->expireTime) {
         list.erase(it->second);
         cacheMap.erase(it);
+        LOG_DEBUG("Cache entry expired: " + std::to_string(key.type) + ":"+ key.name);
         return std::nullopt;
     }
 
