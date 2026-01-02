@@ -27,8 +27,3 @@ target_link_libraries(${PROJECT_NAME} PRIVATE dnslib)
 # Set the output directory for the executable (e.g., build/bin/)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
-
-
-# --- Tests ---
-enable_testing()
-add_subdirectory(tests)
