@@ -37,8 +37,8 @@ namespace dnslib {
 
 
 
-    PacketBuilder& PacketBuilder::addQuestion(std::string name, QTYPE type) {
-        packet.questions.push_back(DNSQuestion(name, type, QCLASS::IN));
+    PacketBuilder& PacketBuilder::addQuestion(std::string name, TYPE type) {
+        packet.questions.push_back(DNSQuestion(name, type, CLASS::IN));
         packet.header.qdCount++;
         return *this;
     }

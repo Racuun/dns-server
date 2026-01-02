@@ -1,23 +1,10 @@
 #pragma once
 
 #include "../interface/ISerializable.hpp"
+#include "../utils/types.hpp"
 #include <string>
 
 namespace dnslib {
-
-    /**
-     * @brief Enum for DNS Resource Record (RR) types.
-     */
-    enum class RTYPE : uint16_t {
-        A = 1,      /**< Host Address */
-        NS = 2,     /**< Authoritative Name Server */
-        PTR = 12,   /**< Domain Name Pointer */
-        HINFO = 13, /**< Host Information */
-        MINFO = 14, /**< Mailbox or Mail List Information */
-        MX = 15,    /**< Mail Exchange */
-        TXT = 16    /**< Text strings */
-    };
-    
 
     /**
      * @brief Abstract base class for all DNS Resource Records (RRs).
@@ -47,6 +34,9 @@ namespace dnslib {
          */
         virtual ~ResourceRecord() = default;
 
+        std::string getName() const { return name; }
+        uint16_t getType() const { return type; }
+        uint32_t getTtl() const { return ttl; }
         /**
          * @brief Serializes the resource record into a byte buffer.
          * 
