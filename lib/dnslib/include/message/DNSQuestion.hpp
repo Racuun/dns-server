@@ -11,31 +11,12 @@
 #pragma once
 
 #include "../interface/ISerializable.hpp"
+#include "../utils/types.hpp"
 #include <cstdint>
 #include <string>
 #include <vector>
 
 namespace dnslib {
-
-    /**
-     * @brief Defines the type of a DNS query.
-     */
-    enum class QTYPE : uint16_t {
-        A = 1,      ///< Query for an IPv4 address.
-        NS = 2,     ///< Query for a name server.
-        PTR = 12,   ///< Query for a pointer record.
-        HINFO = 13, ///< Query for host information.
-        MINFO = 14, ///< Query for mailbox information.
-        MX = 15,    ///< Query for a mail exchange record.
-        TXT = 16    ///< Query for a text record.
-    };
-    
-    /**
-     * @brief Defines the class of a DNS query, almost always 'IN' for internet.
-     */
-    enum class QCLASS : uint16_t {
-        IN = 1      ///< The Internet class.
-    };
     
     /**
      * @brief Represents a single question in the question section of a DNS message.
@@ -66,7 +47,7 @@ namespace dnslib {
          * @param type The query type as a QTYPE enum value.
          * @param qclass The query class as a QCLASS enum value.
          */
-        DNSQuestion(std::string name, QTYPE type, QCLASS qclass)
+        DNSQuestion(std::string name, TYPE type, CLASS qclass)
             : name(name), 
             type(static_cast<uint16_t>(type)), 
             qclass(static_cast<uint16_t>(qclass)) {};
@@ -92,14 +73,14 @@ namespace dnslib {
          * 
          * @return QTYPE The query type as a QTYPE enum.
          */
-        QTYPE getType() const { return static_cast<QTYPE>(type); }
+        TYPE getType() const { return static_cast<TYPE>(type); }
 
         /**
          * @brief Gets the query class.
          * 
          * @return QCLASS The query class as a QCLASS enum.
          */
-        QCLASS getQclass() const { return static_cast<QCLASS>(qclass); }
+        CLASS getClass() const { return static_cast<CLASS>(qclass); }
 
         /**
          * @brief Gets the domain name being queried.
@@ -109,35 +90,4 @@ namespace dnslib {
         std::string getName() const { return name; }
     };
     
-}
-
-namespace std {
-    /**
-     * @brief Overloads std::to_string for dnslib::QTYPE.
-     * 
-     * Provides a convenient way to get a string representation of a QTYPE enum value.
-     * 
-     * @param qtype The QTYPE value to convert.
-     * @return std::string The string name of the query type (e.g., "A", "NS"). Returns "Unknown" if the type is not recognized.
-     */
-    inline std::string to_string(const dnslib::QTYPE& qtype) {
-        switch (qtype) {
-            case dnslib::QTYPE::A:
-                return "A";
-            case dnslib::QTYPE::NS:
-                return "NS";
-            case dnslib::QTYPE::PTR:
-                return "PTR";
-            case dnslib::QTYPE::HINFO:
-                return "HINFO";
-            case dnslib::QTYPE::MINFO:
-                return "MINFO";
-            case dnslib::QTYPE::MX:
-                return "MX";
-            case dnslib::QTYPE::TXT:
-                return "TXT";
-            default:
-                return "Unknown";
-        }
-    }
 }
