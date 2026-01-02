@@ -2,7 +2,6 @@ BUILD_DIR = build
 
 .PHONY: all clean project build run test
 
-
 clean:
 	rm -rf $(BUILD_DIR)/*
 
@@ -30,6 +29,5 @@ test: project
 	$(MAKE) -C $(BUILD_DIR) dns_tests
 	cd $(BUILD_DIR) && ctest --output-on-failure
 
-.PHONY: test
 test:
 	$ cd build && ctest --output-on-failure
