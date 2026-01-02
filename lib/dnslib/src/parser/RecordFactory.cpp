@@ -8,7 +8,7 @@ namespace dnslib {
 
     std::shared_ptr<ResourceRecord> RecordFactory::create(utils::ByteReader& reader) {
         std::string name = reader.readDomain();
-        RTYPE type = static_cast<RTYPE>(reader.readU16());
+        TYPE type = static_cast<TYPE>(reader.readU16());
         uint16_t rclass = reader.readU16();
         uint32_t ttl = reader.readU32();
         uint16_t rdlength = reader.readU16();
@@ -18,12 +18,12 @@ namespace dnslib {
         std::shared_ptr<ResourceRecord> record = nullptr;
 
         switch (type) {
-            case RTYPE::A: {
+            case TYPE::A: {
                 std::uint32_t ip = reader.readU32();
                 record = std::make_shared<ARecord>(name, ttl, ip);
                 break;
             }
-            case RTYPE::MX: {
+            case TYPE::MX: {
                 break;
             }
             default:

@@ -26,7 +26,7 @@ namespace dnslib {
 
         for (int i=0; i<qdCount; i++) {
             std::string name = reader.readDomain();
-            QTYPE type = static_cast<QTYPE>(reader.readU16());
+            TYPE type = static_cast<TYPE>(reader.readU16());
             uint16_t qclass = reader.readU16();
 
             builder.addQuestion(name, type);

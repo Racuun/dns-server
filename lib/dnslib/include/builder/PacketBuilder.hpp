@@ -14,6 +14,14 @@
 #include <cstddef>
 #include <cstdint>
 
+// aliases for improved developer experience
+#define F_NONE            dnslib::PacketFlag::NONE
+#define F_RESPONSE        dnslib::PacketFlag::RESPONSE
+#define F_AUTHORITATIVE   dnslib::PacketFlag::AUTHORITATIVE
+#define F_TRUNCATED       dnslib::PacketFlag::TRUNCATED
+#define F_RECURSION_DES   dnslib::PacketFlag::RECURSION_DES
+#define F_RECURSION_AVAIL dnslib::PacketFlag::RECURSION_AVAIL
+
 namespace dnslib {
 
     /**
@@ -124,7 +132,7 @@ namespace dnslib {
          * @param type The type of query (e.g., A, AAAA, MX).
          * @return A reference to the PacketBuilder for method chaining.
          */
-        PacketBuilder& addQuestion(std::string name, QTYPE type);
+        PacketBuilder& addQuestion(std::string name, TYPE type);
 
         /**
          * @brief Adds an answer resource record to the DNS packet.

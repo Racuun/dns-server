@@ -16,8 +16,8 @@ TEST_F(DnsPacketTest, EncodeDecodeCycle) {
     
     auto originalPacket = builder
         .setId(0x1337)
-        .withFlags(PacketFlag::RECURSION_DES) // Type A
-        .addQuestion(expectedName, QTYPE::A)
+        .withFlags(F_RECURSION_DES) // Type A
+        .addQuestion(expectedName, TYPE::A)
         //.addARecord(expectedName, expectedIp)
         .build();
 

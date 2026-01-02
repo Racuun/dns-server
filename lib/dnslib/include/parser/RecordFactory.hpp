@@ -10,8 +10,8 @@
 
 #pragma once
 
-#include "records/ResourceRecord.hpp"
-#include "utils/read.hpp"
+#include "../records/ResourceRecord.hpp"
+#include "../utils/read.hpp"
 #include <memory>
 
 namespace dnslib {

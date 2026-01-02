@@ -8,11 +8,8 @@
 namespace dnslib {
 
     void ARecord::serialize(std::vector<uint8_t>& buff) const {
-        // Name is not serialized as part of the record data, but rather
-        // as part of the question or answer section, including pointers.
-        // This is a simplified serialization.
-        // utils::writeDomain(buff, name);
-
+        // Name 
+        utils::writeDomain(buff, name);
         // Type
         utils::writeU16(buff, type);
         // Class
