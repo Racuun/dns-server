@@ -16,7 +16,9 @@ enable_testing()
 add_subdirectory(lib/dnslib)
 
 # --- Executable ---
-add_executable(${PROJECT_NAME} src/main.cpp)
+file(GLOB APP_SOURCES CONFIGURE_DEPENDS "src/*.cpp" "src/utils/*.cpp")
+add_executable(${PROJECT_NAME} ${APP_SOURCES})
+target_include_directories(${PROJECT_NAME} PUBLIC include)
 target_link_libraries(${PROJECT_NAME} PRIVATE dnslib)
 
 
