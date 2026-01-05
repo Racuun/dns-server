@@ -79,3 +79,44 @@ TEST(MXRecordTest, SerializeMXRecord) {
 
     EXPECT_EQ(buffer, expected_buffer);
 }
+
+// -------------
+//      CNAME
+// -------------
+TEST(CNAMERecordTest, CreateCNAMERecord) {
+    CNAMERecord record("www.google.com", 3600, "google.com");
+    EXPECT_EQ(record.getName(), "www.google.com");
+    EXPECT_EQ(record.getTtl(), 3600);
+    EXPECT_EQ(record.getCname(), "google.com");
+}
+
+TEST(CNAMERecordTest, ToStringCNAMERecord) {
+    CNAMERecord record("www.google.com", 3600, "google.com");
+    std::string expected = "www.google.com 3600 IN CNAME google.com";
+    EXPECT_EQ(record.toString(), expected);
+}
+
+TEST(CNAMERecordTest, SerializeCNAMERecord) {
+    CNAMERecord record("www.example.com", 3600, "example.com");
+    std::vector<uint8_t> buffer;
+    record.serialize(buffer);
+
+    std::vector<uint8_t> expected_buffer = {
+        // Name: www.example.com
+        3, 'w', 'w', 'w', 7, 'e', 'x', 'a', 'm', 'p', 'l', 'e', 3, 'c', 'o', 'm', 0,
+        // Type: CNAME (5)
+        0, 5,
+        // Class: IN (1)
+        0, 1,
+        // TTL: 3600
+        0, 0, 0x0E, 0x10,
+        // RDLENGTH: 13
+        0, 13,
+        // CNAME: example.com
+        7, 'e', 'x', 'a', 'm', 'p', 'l', 'e',
+        3, 'c', 'o', 'm',
+        0
+    };
+
+    EXPECT_EQ(buffer, expected_buffer);
+}

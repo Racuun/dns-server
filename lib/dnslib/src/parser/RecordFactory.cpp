@@ -1,7 +1,5 @@
 #include "parser/RecordFactory.hpp"
-#include "records/ARecord.hpp"
-#include "records/MXRecord.hpp"
-#include "records/ResourceRecord.hpp"
+#include "records/_records.hpp"
 #include <cstddef>
 #include <cstdint>
 
@@ -28,6 +26,11 @@ namespace dnslib {
                 std::uint16_t pref = reader.readU16();
                 std::string exch = reader.readDomain();
                 record = std::make_shared<MXRecord>(name, ttl, pref, exch);
+                break;
+            }
+            case TYPE::CNAME: {
+                std::string cname = reader.readDomain();
+                record = std::make_shared<CNAMERecord>(name, ttl, cname);
                 break;
             }
             default:
