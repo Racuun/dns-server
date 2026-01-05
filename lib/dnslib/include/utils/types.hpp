@@ -12,6 +12,7 @@ namespace dnslib {
     enum class TYPE : uint16_t {
         A = 1,      ///< Query for an IPv4 address.
         NS = 2,     ///< Query for a name server.
+        CNAME = 5,  ///< Query for a canonical name.
         PTR = 12,   ///< Query for a pointer record.
         HINFO = 13, ///< Query for host information.
         MINFO = 14, ///< Query for mailbox information.

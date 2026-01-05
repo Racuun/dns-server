@@ -18,8 +18,7 @@
 #include "utils/utils.hpp"
 #include "utils/read.hpp"
 
-#include "records/ResourceRecord.hpp"
-#include "records/ARecord.hpp"
+#include "records/_records.hpp"
 #include "message/DNSHeader.hpp"
 #include "message/DNSQuestion.hpp"
 #include "message/DNSPacket.hpp"
