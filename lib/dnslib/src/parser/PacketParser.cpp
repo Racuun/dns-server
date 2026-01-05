@@ -19,7 +19,7 @@ namespace dnslib {
 
         uint16_t qdCount = reader.readU16();
         uint16_t anCount = reader.readU16();
-        uint16_t nsCount = reader.readU16();
+        uint16_t auCount = reader.readU16();
         uint16_t arCount = reader.readU16();
 
         builder.expectedAnswers(anCount);
@@ -37,6 +37,15 @@ namespace dnslib {
             builder.addAnswer(record);
         }
 
+        for (int i=0; i<auCount; i++) {
+            // auto record = RecordFactory::create(reader);
+            // builder.addAuthority(record);
+        }
+
+        for (int i=0; i<arCount; i++) {
+            // auto record = RecordFactory::create(reader);
+            // builder.addAdditional(record);
+        }
 
         return builder.build();
     }
