@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../interface/ISerializable.hpp"
+#include "../utils/utils.hpp"
 #include "../utils/types.hpp"
 #include <string>
 
@@ -42,7 +43,16 @@ namespace dnslib {
          * 
          * @param buff The buffer to which the serialized data will be written.
          */
-        virtual void serialize(std::vector<uint8_t>& buff) const override = 0;
+        virtual void serialize(std::vector<uint8_t>& buff) const override {
+            // Name 
+            utils::writeDomain(buff, name);
+            // Type
+            utils::writeU16(buff, type);
+            // Class
+            utils::writeU16(buff, 1); // IN
+            // TTL
+            utils::writeU32(buff, ttl);
+        }
     };
 
 }

@@ -11,7 +11,7 @@ namespace dnslib {
         utils::writeU16(buff, flags);
         utils::writeU16(buff, qdCount);
         utils::writeU16(buff, anCount);
-        utils::writeU16(buff, nsCount);
+        utils::writeU16(buff, auCount);
         utils::writeU16(buff, arCount);
     }    
     
@@ -20,7 +20,7 @@ namespace dnslib {
             "\nflags: " + std::to_string(flags) +
             "\nqdcount: " + std::to_string(qdCount) + 
             "\nancount: " + std::to_string(anCount) + 
-            "\nnscount: " + std::to_string(nsCount) + 
+            "\nnscount: " + std::to_string(auCount) + 
             "\narcount: " + std::to_string(arCount);
     }
 

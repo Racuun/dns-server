@@ -59,7 +59,7 @@ namespace dnslib {
         uint16_t flags = 0;   ///< A 16-bit field of flags. @see setResponse, setOpcode, etc.
         uint16_t qdCount = 0; ///< The number of entries in the question section.
         uint16_t anCount = 0; ///< The number of resource records in the answer section.
-        uint16_t nsCount = 0; ///< The number of name server resource records in the authority records section.
+        uint16_t auCount = 0; ///< The number of name server resource records in the authority records section.
         uint16_t arCount = 0; ///< The number of resource records in the additional records section.
 
         // Masks for accessing specific bits within the 16-bit flags field.

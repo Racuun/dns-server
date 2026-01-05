@@ -8,14 +8,8 @@
 namespace dnslib {
 
     void ARecord::serialize(std::vector<uint8_t>& buff) const {
-        // Name 
-        utils::writeDomain(buff, name);
-        // Type
-        utils::writeU16(buff, type);
-        // Class
-        utils::writeU16(buff, 1); // IN
-        // TTL
-        utils::writeU32(buff, ttl);
+        // serialize common fields
+        ResourceRecord::serialize(buff);
         // RDLENGTH
         utils::writeU16(buff, 4);
         // RDATA
@@ -26,7 +20,7 @@ namespace dnslib {
         std::stringstream ss;
         in_addr addr;
         addr.s_addr = ipAdress;
-        ss << "A Record: " << name << " " << ttl << " IN A " << inet_ntoa(addr);
+        ss << name << " " << ttl << " IN A " << inet_ntoa(addr);
         return ss.str();
     }
 
