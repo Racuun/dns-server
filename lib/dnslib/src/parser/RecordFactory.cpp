@@ -32,6 +32,11 @@ namespace dnslib {
                 record = std::make_shared<CNAMERecord>(name, ttl, cname);
                 break;
             }
+            case TYPE::PTR: {
+                std::string ptr = reader.readDomain();
+                record = std::make_shared<PTRRecord>(name, ttl, ptr);
+                break;
+            }
             case TYPE::MX: {
                 std::uint16_t pref = reader.readU16();
                 std::string exch = reader.readDomain();

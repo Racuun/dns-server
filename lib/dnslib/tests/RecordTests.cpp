@@ -117,6 +117,47 @@ TEST(CNAMERecordTest, SerializeCNAMERecord) {
 }
 
 // -------------
+//      PTR
+// -------------
+TEST(PTRRecordTest, CreatePTRRecord) {
+    PTRRecord record("1.0.0.127.in-addr.arpa", 3600, "localhost");
+    EXPECT_EQ(record.getName(), "1.0.0.127.in-addr.arpa");
+    EXPECT_EQ(record.getTtl(), 3600);
+    EXPECT_EQ(record.getPtr(), "localhost");
+}
+
+TEST(PTRRecordTest, ToStringPTRRecord) {
+    PTRRecord record("1.0.0.127.in-addr.arpa", 3600, "localhost");
+    std::string expected = "1.0.0.127.in-addr.arpa 3600 IN PTR localhost";
+    EXPECT_EQ(record.toString(), expected);
+}
+
+TEST(PTRRecordTest, SerializePTRRecord) {
+    PTRRecord record("4.3.2.1.in-addr.arpa", 3600, "example.com");
+    std::vector<uint8_t> buffer;
+    record.serialize(buffer);
+
+    std::vector<uint8_t> expected_buffer = {
+        // Name: 4.3.2.1.in-addr.arpa
+        1, '4', 1, '3', 1, '2', 1, '1', 7, 'i', 'n', '-', 'a', 'd', 'd', 'r', 4, 'a', 'r', 'p', 'a', 0,
+        // Type: PTR (12)
+        0, 12,
+        // Class: IN (1)
+        0, 1,
+        // TTL: 3600
+        0, 0, 0x0E, 0x10,
+        // RDLENGTH: 13
+        0, 13,
+        // PTR: example.com
+        7, 'e', 'x', 'a', 'm', 'p', 'l', 'e',
+        3, 'c', 'o', 'm',
+        0
+    };
+
+    EXPECT_EQ(buffer, expected_buffer);
+}
+
+// -------------
 //      MX
 // -------------
 TEST(MXRecordTest, CreateMXRecord) {
