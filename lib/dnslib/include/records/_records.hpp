@@ -1,6 +1,8 @@
 #pragma once
 
-#include "ARecord.hpp"
-#include "MXRecord.hpp"
 #include "ResourceRecord.hpp"
+
+#include "ARecord.hpp"
+#include "NSRecord.hpp"
 #include "CNAMERecord.hpp"
+#include "MXRecord.hpp"

@@ -22,15 +22,20 @@ namespace dnslib {
                 record = std::make_shared<ARecord>(name, ttl, ip);
                 break;
             }
-            case TYPE::MX: {
-                std::uint16_t pref = reader.readU16();
-                std::string exch = reader.readDomain();
-                record = std::make_shared<MXRecord>(name, ttl, pref, exch);
+            case TYPE::NS: {
+                std::string ns = reader.readDomain();
+                record = std::make_shared<NSRecord>(name, ttl, ns);
                 break;
             }
             case TYPE::CNAME: {
                 std::string cname = reader.readDomain();
                 record = std::make_shared<CNAMERecord>(name, ttl, cname);
+                break;
+            }
+            case TYPE::MX: {
+                std::uint16_t pref = reader.readU16();
+                std::string exch = reader.readDomain();
+                record = std::make_shared<MXRecord>(name, ttl, pref, exch);
                 break;
             }
             default:
