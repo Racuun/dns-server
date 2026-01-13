@@ -12,20 +12,11 @@ int main(int, char**){
 
     std::vector<uint8_t> buffer((std::istreambuf_iterator<char>(file)), {});
 
-    // Packet::process_packet(buffer.data(), buffer.size());
-
-
-    // Packet::PacketBuilder builder;
-    // builder.build_header(Packet::OPCODE::QUERY, 1);
-    // builder.add_question("google.com", Packet::QTYPE::A, 1);
-    // Packet::DNSPacket* packet = builder.get_packet();
-    // std::cout << std::hex << builder.serialize_packet(packet);
-
     dnslib::DNSPacket packet = dnslib::PacketBuilder(1234)
                                 .withOpcode(dnslib::OPCODE::STATUS)
                                 .withFlags(dnslib::PacketFlag::NONE)
                                 .withRcode(dnslib::RCODE::NOERROR)
-                                .addQuestion("google.com", dnslib::QTYPE::A)
+                                .addQuestion("google.com", dnslib::TYPE::A)
                                 .build();
 
     std::cout << packet.toString();
