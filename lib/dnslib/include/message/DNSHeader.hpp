@@ -103,6 +103,13 @@ namespace lk::dnslib {
         DNSHeader() = default;
 
         /**
+         * @brief Parametric constructor for a DNSHeader.
+         * 
+         * @param id The transaction ID to initialize the header with.
+         */
+        explicit DNSHeader(uint16_t id) : id(id) {}
+
+        /**
          * @brief Serializes the DNSHeader into DNS wire format.
          * 
          * @param buff The buffer to which the 12 bytes of the header will be appended in network byte order.

@@ -40,6 +40,13 @@ namespace lk::dnslib {
         DNSPacket() = default;
 
         /**
+         * @brief Parametric constructor for a new DNSPacket object.
+         * 
+         * @param header The DNSHeader to initialize the packet with.
+         */
+        explicit DNSPacket(const DNSHeader& header) : header(header) {}
+
+        /**
          * @brief Serializes the entire DNSPacket into a byte buffer for network transmission.
          * 
          * This method calls the serialize methods of the header, each question, and

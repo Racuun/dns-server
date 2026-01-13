@@ -13,6 +13,7 @@
 #include <cstdint>
 #include <vector>
 #include <string>
+#include <iostream>
 
 namespace lk::dnslib {
 
@@ -49,6 +50,21 @@ namespace lk::dnslib {
          * @return A std::string describing the object.
          */
         virtual std::string toString() const = 0;
+
+        /**
+         * @brief Overloads the stream insertion operator for ISerializable objects.
+         * 
+         * Allows printing any object that implements ISerializable directly to an output stream
+         * (like std::cout) using its toString() method.
+         * 
+         * @param os The output stream.
+         * @param obj The ISerializable object to print.
+         * @return std::ostream& The modified output stream.
+         */
+        friend std::ostream& operator<<(std::ostream& os, const ISerializable& obj) {
+            os << obj.toString();
+            return os;
+        }
     };
 
 }
