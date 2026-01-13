@@ -12,6 +12,7 @@
 
 #include "ResourceRecord.hpp"
 #include <arpa/inet.h>
+#include <stdexcept>
 
 namespace dnslib {
 
@@ -42,7 +43,11 @@ namespace dnslib {
          * @param ip The IPv4 address as a standard dot-decimal notation string (e.g., "192.168.1.1").
          */
         ARecord(std::string n, uint32_t ttl, std::string ip) 
-            : ResourceRecord(n, 1, ttl), ipAdress(inet_addr(ip.c_str())) {}
+            : ResourceRecord(n, 1, ttl) {
+                if (inet_pton(AF_INET, ip.c_str(), &ipAdress) != 1) {
+                    throw std::invalid_argument("Invalid IPv4 address: " + ip);
+                }
+            }
 
         /**
          * @brief Serializes the ARecord into a byte buffer in DNS wire format.

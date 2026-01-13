@@ -15,6 +15,7 @@
 #include <sys/types.h>
 #include <vector>
 #include <string>
+#include <stdexcept>
 
 namespace dnslib::utils {
     
@@ -82,7 +83,12 @@ namespace dnslib::utils {
          * 
          * @param pos The new position (index).
          */
-        void setPosition(size_t pos) { index = pos; }
+        void setPosition(size_t pos) {
+            if (pos > buffer.size()) {
+                throw std::out_of_range("Position out of bounds");
+            }
+            index = pos;
+        }
 
         /**
          * @brief Gets the underlying buffer.
