@@ -1,3 +1,13 @@
+/**
+ * @file utils.hpp
+ * @brief Provides utility functions for low-level binary data manipulation (writing).
+ * @version 0.1
+ * @date 2026-01-01
+ * 
+ * @copyright Copyright (c) 2026
+ * 
+ */
+
 #pragma once
 
 #include <cstdint>
