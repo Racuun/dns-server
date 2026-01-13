@@ -3,7 +3,7 @@
 #include <sstream>
 #include <vector>
 
-namespace dnslib {
+namespace lk::dnslib {
 
     void CNAMERecord::serialize(std::vector<uint8_t>& buff) const {
         ResourceRecord::serialize(buff);

@@ -16,7 +16,7 @@
 #include <vector>
 #include <string>
 
-namespace dnslib {
+namespace lk::dnslib {
 
     class PacketBuilder;
     

@@ -3,7 +3,7 @@
 #include <cstddef>
 #include <cstdint>
 
-namespace dnslib {
+namespace lk::dnslib {
 
     std::shared_ptr<ResourceRecord> RecordFactory::create(utils::ByteReader& reader) {
         std::string name = reader.readDomain();

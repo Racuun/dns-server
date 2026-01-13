@@ -16,7 +16,7 @@
 #include <string>
 #include <vector>
 
-namespace dnslib {
+namespace lk::dnslib {
     
     /**
      * @brief Represents a single question in the question section of a DNS message.

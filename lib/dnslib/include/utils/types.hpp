@@ -14,7 +14,7 @@
 #include <string>
 
 
-namespace dnslib {
+namespace lk::dnslib {
 
     /**
      * @brief Defines the type of a DNS query.
@@ -41,28 +41,28 @@ namespace dnslib {
 
 namespace std {
     /**
-     * @brief Overloads std::to_string for dnslib::QTYPE.
+     * @brief Overloads std::to_string for lk::dnslib::QTYPE.
      * 
      * Provides a convenient way to get a string representation of a QTYPE enum value.
      * 
      * @param qtype The QTYPE value to convert.
      * @return std::string The string name of the query type (e.g., "A", "NS"). Returns "Unknown" if the type is not recognized.
      */
-    inline std::string to_string(const dnslib::TYPE& qtype) {
+    inline std::string to_string(const lk::dnslib::TYPE& qtype) {
         switch (qtype) {
-            case dnslib::TYPE::A:
+            case lk::dnslib::TYPE::A:
                 return "A";
-            case dnslib::TYPE::NS:
+            case lk::dnslib::TYPE::NS:
                 return "NS";
-            case dnslib::TYPE::PTR:
+            case lk::dnslib::TYPE::PTR:
                 return "PTR";
-            case dnslib::TYPE::HINFO:
+            case lk::dnslib::TYPE::HINFO:
                 return "HINFO";
-            case dnslib::TYPE::MINFO:
+            case lk::dnslib::TYPE::MINFO:
                 return "MINFO";
-            case dnslib::TYPE::MX:
+            case lk::dnslib::TYPE::MX:
                 return "MX";
-            case dnslib::TYPE::TXT:
+            case lk::dnslib::TYPE::TXT:
                 return "TXT";
             default:
                 return "Unknown";

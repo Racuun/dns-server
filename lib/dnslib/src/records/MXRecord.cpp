@@ -3,7 +3,7 @@
 #include <vector>
 #include <sstream>
 
-namespace dnslib {
+namespace lk::dnslib {
 
     void MXRecord::serialize(std::vector<uint8_t>& buff) const {
         ResourceRecord::serialize(buff);

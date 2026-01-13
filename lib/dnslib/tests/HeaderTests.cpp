@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 #include "dns.hpp"
 
-using namespace dnslib;
+using namespace lk::dnslib;
 
 // Test sprawdzający czy domyślne wartości są zerami
 TEST(DnsHeaderTest, DefaultValuesAreZero) {

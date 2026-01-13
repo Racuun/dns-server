@@ -12,7 +12,7 @@
 
 #include "ResourceRecord.hpp"
 
-namespace dnslib {
+namespace lk::dnslib {
 
     /**
      * @brief Represents a DNS 'CNAME' record, which aliases one name to another.

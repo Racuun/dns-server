@@ -14,7 +14,7 @@
 #include <vector>
 #include <string>
 
-namespace dnslib {
+namespace lk::dnslib {
 
     /**
      * @brief Interface for objects that can be serialized into a byte buffer.

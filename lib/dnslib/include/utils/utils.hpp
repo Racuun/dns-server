@@ -14,7 +14,7 @@
 #include <vector>
 #include <string>
 
-namespace dnslib::utils {
+namespace lk::dnslib::utils {
 
     /**
      * @brief Writes a uint8_t value to a buffer.

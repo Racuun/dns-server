@@ -15,7 +15,7 @@
 #include "../records/ResourceRecord.hpp"
 #include <memory>
 
-namespace dnslib {
+namespace lk::dnslib {
 
     class PacketBuilder;
 

@@ -5,7 +5,7 @@
 #include "utils/read.hpp"
 
 
-namespace dnslib {
+namespace lk::dnslib {
 
     DNSPacket PacketParser::parse(const std::vector<uint8_t>& rawData) {
         utils::ByteReader reader(rawData);

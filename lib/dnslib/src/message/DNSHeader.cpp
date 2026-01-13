@@ -4,7 +4,7 @@
 #include <string>
 
 
-namespace dnslib {
+namespace lk::dnslib {
 
     void DNSHeader::serialize(std::vector<uint8_t>& buff) const {
         utils::writeU16(buff, id);

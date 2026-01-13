@@ -1,6 +1,6 @@
 #include "builder/PacketBuilder.hpp"
 
-namespace dnslib {
+namespace lk::dnslib {
     PacketBuilder::PacketBuilder(uint16_t id) {
         packet.header.id = id;
     }

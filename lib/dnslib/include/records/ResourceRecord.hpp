@@ -5,7 +5,7 @@
 #include "../utils/types.hpp"
 #include <string>
 
-namespace dnslib {
+namespace lk::dnslib {
 
     /**
      * @brief Abstract base class for all DNS Resource Records (RRs).

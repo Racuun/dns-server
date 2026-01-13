@@ -5,7 +5,7 @@
 #include <netinet/in.h>
 
 
-namespace dnslib {
+namespace lk::dnslib {
 
     void ARecord::serialize(std::vector<uint8_t>& buff) const {
         // serialize common fields

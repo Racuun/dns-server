@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 #include "dns.hpp"
 
-using namespace dnslib;
+using namespace lk::dnslib;
 
 TEST(DnsQuestionTest, CreateQuestion) {
     DNSQuestion question("google.com", TYPE::A, CLASS::IN);

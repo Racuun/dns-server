@@ -14,7 +14,7 @@
 #include <vector>
 
 
-namespace dnslib {
+namespace lk::dnslib {
 
     class DNSPacket;
 

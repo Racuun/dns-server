@@ -4,7 +4,7 @@
 #include <vector>
 #include <sstream>
 
-namespace dnslib {
+namespace lk::dnslib {
 
     void NSRecord::serialize(std::vector<uint8_t>& buff) const {
         ResourceRecord::serialize(buff);

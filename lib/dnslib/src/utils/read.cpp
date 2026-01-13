@@ -3,7 +3,7 @@
 #include <cstdint>
 #include <stdexcept>
 
-namespace dnslib::utils {
+namespace lk::dnslib::utils {
 
     void ByteReader::chceckBounds(size_t n) const {
         if (index + n > buffer.size()) {

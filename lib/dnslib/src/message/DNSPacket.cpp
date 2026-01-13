@@ -1,7 +1,7 @@
 #include "message/DNSPacket.hpp"
 #include <string>
 
-namespace dnslib {
+namespace lk::dnslib {
 
     void DNSPacket::serialize(std::vector<uint8_t>& buff) const {
         header.serialize(buff);

@@ -2,7 +2,7 @@
 #include <arpa/inet.h>
 #include "dns.hpp"
 
-using namespace dnslib;
+using namespace lk::dnslib;
 
 class DnsPacketTest : public ::testing::Test {
 protected:

@@ -1,7 +1,7 @@
 #include "utils/utils.hpp"
 #include <stdexcept>
 
-namespace dnslib::utils {
+namespace lk::dnslib::utils {
 
     void writeU8(std::vector<uint8_t>& buffer, uint8_t value) {
         buffer.push_back(value);

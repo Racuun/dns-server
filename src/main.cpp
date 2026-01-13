@@ -12,18 +12,18 @@ int main(int, char**){
 
     std::vector<uint8_t> buffer((std::istreambuf_iterator<char>(file)), {});
 
-    dnslib::DNSPacket packet = dnslib::PacketBuilder(1234)
-                                .withOpcode(dnslib::OPCODE::STATUS)
-                                .withFlags(dnslib::PacketFlag::NONE)
-                                .withRcode(dnslib::RCODE::NOERROR)
-                                .addQuestion("google.com", dnslib::TYPE::A)
+    lk::dnslib::DNSPacket packet = lk::dnslib::PacketBuilder(1234)
+                                .withOpcode(lk::dnslib::OPCODE::STATUS)
+                                .withFlags(lk::dnslib::PacketFlag::NONE)
+                                .withRcode(lk::dnslib::RCODE::NOERROR)
+                                .addQuestion("google.com", lk::dnslib::TYPE::A)
                                 .build();
 
     std::cout << packet.toString();
 
     std::cout << "\n\n READ PACKET: \n";
 
-    dnslib::DNSPacket parsed = dnslib::PacketParser::parse(buffer);
+    lk::dnslib::DNSPacket parsed = lk::dnslib::PacketParser::parse(buffer);
     std::cout << parsed.toString();
 
 
@@ -32,7 +32,7 @@ int main(int, char**){
 
     std::cout << "\n\n READ PACKET 2: \n";
 
-    dnslib::DNSPacket parsed2 = dnslib::PacketParser::parse(response_buffer);
+    lk::dnslib::DNSPacket parsed2 = lk::dnslib::PacketParser::parse(response_buffer);
     std::cout << parsed2.toString();
 
     return 0;

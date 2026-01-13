@@ -3,7 +3,7 @@
 #include "utils/utils.hpp"
 #include <sstream>
 
-namespace dnslib {
+namespace lk::dnslib {
 
     void PTRRecord::serialize(std::vector<uint8_t>& buff) const {
         ResourceRecord::serialize(buff);

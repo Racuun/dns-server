@@ -2,14 +2,14 @@
 #include <memory>
 #include "dns.hpp"
 
-using namespace dnslib;
+using namespace lk::dnslib;
 
 TEST(BuilderTest, BuildPacket) {
     auto packet = PacketBuilder()
         .setId(123)
         .withFlags(F_RECURSION_DES | F_RECURSION_AVAIL)
         .addQuestion("google.com", TYPE::A)
-        .addAnswer(std::make_shared<dnslib::ARecord>(dnslib::ARecord("google.com", 3600, "1.2.3.4")))
+        .addAnswer(std::make_shared<lk::dnslib::ARecord>(lk::dnslib::ARecord("google.com", 3600, "1.2.3.4")))
         .build();
 
     EXPECT_EQ(packet.getHeader().getId(), 123);

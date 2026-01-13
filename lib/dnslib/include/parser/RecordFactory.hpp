@@ -14,7 +14,7 @@
 #include "../utils/read.hpp"
 #include <memory>
 
-namespace dnslib {
+namespace lk::dnslib {
     class DNSPacket;
 
     /**

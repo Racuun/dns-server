@@ -12,7 +12,7 @@
 
 #include "ResourceRecord.hpp"
 
-namespace dnslib {
+namespace lk::dnslib {
 
     /**
      * @brief Represents a DNS 'PTR' record, primarily used for reverse DNS lookups.

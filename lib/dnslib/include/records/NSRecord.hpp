@@ -12,7 +12,7 @@
 
 #include "ResourceRecord.hpp"
 
-namespace dnslib {
+namespace lk::dnslib {
 
     /**
      * @brief Represents a DNS 'NS' record, which delegates a DNS zone to an authoritative name server.

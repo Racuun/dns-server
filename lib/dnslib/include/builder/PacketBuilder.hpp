@@ -15,14 +15,14 @@
 #include <cstdint>
 
 // aliases for improved developer experience
-#define F_NONE            dnslib::PacketFlag::NONE
-#define F_RESPONSE        dnslib::PacketFlag::RESPONSE
-#define F_AUTHORITATIVE   dnslib::PacketFlag::AUTHORITATIVE
-#define F_TRUNCATED       dnslib::PacketFlag::TRUNCATED
-#define F_RECURSION_DES   dnslib::PacketFlag::RECURSION_DES
-#define F_RECURSION_AVAIL dnslib::PacketFlag::RECURSION_AVAIL
+#define F_NONE            lk::dnslib::PacketFlag::NONE
+#define F_RESPONSE        lk::dnslib::PacketFlag::RESPONSE
+#define F_AUTHORITATIVE   lk::dnslib::PacketFlag::AUTHORITATIVE
+#define F_TRUNCATED       lk::dnslib::PacketFlag::TRUNCATED
+#define F_RECURSION_DES   lk::dnslib::PacketFlag::RECURSION_DES
+#define F_RECURSION_AVAIL lk::dnslib::PacketFlag::RECURSION_AVAIL
 
-namespace dnslib {
+namespace lk::dnslib {
 
     /**
      * @brief Represents the flags in a DNS packet header.

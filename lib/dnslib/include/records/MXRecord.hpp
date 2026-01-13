@@ -14,7 +14,7 @@
 #include <cstdint>
 #include <string>
 
-namespace dnslib {
+namespace lk::dnslib {
 
     /**
      * @brief Represents a DNS 'MX' record, used to route email.

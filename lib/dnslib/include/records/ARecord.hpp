@@ -13,7 +13,7 @@
 #include "ResourceRecord.hpp"
 #include <arpa/inet.h>
 
-namespace dnslib {
+namespace lk::dnslib {
 
     /**
      * @brief Represents a DNS 'A' record, which maps a domain name to an IPv4 address.

@@ -2,7 +2,7 @@
 #include "utils/utils.hpp"
 
 
-namespace dnslib {
+namespace lk::dnslib {
 
     void DNSQuestion::serialize(std::vector<uint8_t>& buff) const {
         utils::writeDomain(buff, name);

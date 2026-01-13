@@ -16,7 +16,7 @@
 #include <vector>
 #include <string>
 
-namespace dnslib::utils {
+namespace lk::dnslib::utils {
     
     /**
      * @brief A utility class for reading bytes from a buffer.

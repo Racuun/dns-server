@@ -13,7 +13,7 @@
 #include <cstdint>
 #include <netinet/in.h>
 #include <vector>
-namespace dnslib {
+namespace lk::dnslib {
 
     /**
      * @brief Specifies the transport protocol used for a DNS message.
