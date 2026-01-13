@@ -1,3 +1,13 @@
+/**
+ * @file DNSMessage.hpp
+ * @brief Defines the DNSMessageL struct and related PROTO enum for handling received DNS messages.
+ * @version 0.1
+ * @date 2026-01-01
+ * 
+ * @copyright Copyright (c) 2026
+ * 
+ */
+
 #pragma once
 
 #include <cstdint>
