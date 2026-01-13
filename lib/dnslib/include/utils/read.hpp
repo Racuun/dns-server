@@ -1,3 +1,13 @@
+/**
+ * @file read.hpp
+ * @brief Defines the ByteReader class for safe and convenient binary data reading.
+ * @version 0.1
+ * @date 2026-01-01
+ * 
+ * @copyright Copyright (c) 2026
+ * 
+ */
+
 #pragma once
 
 #include <cstddef>

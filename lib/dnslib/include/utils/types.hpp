@@ -1,3 +1,13 @@
+/**
+ * @file types.hpp
+ * @brief Defines common enums and types used throughout the dnslib library.
+ * @version 0.1
+ * @date 2026-01-01
+ * 
+ * @copyright Copyright (c) 2026
+ * 
+ */
+
 #pragma once
 
 #include <cstdint>
