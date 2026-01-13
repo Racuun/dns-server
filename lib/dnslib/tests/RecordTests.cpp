@@ -14,6 +14,10 @@ TEST(ARecordTest, CreateARecord) {
     EXPECT_EQ(record.getIpAddress(), inet_addr("8.8.8.8"));
 }
 
+TEST(ARecordTest, InvalidIpThrows) {
+    EXPECT_THROW(ARecord("google.com", 3600, "999.999.999.999"), std::invalid_argument);
+}
+
 TEST(ARecordTest, EncodeARecord) {
     ARecord record("google.com", 12345, "8.8.8.8");
     std::vector<uint8_t> buffer;

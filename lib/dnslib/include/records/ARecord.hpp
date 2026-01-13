@@ -12,6 +12,7 @@
 
 #include "ResourceRecord.hpp"
 #include <arpa/inet.h>
+#include <stdexcept>
 
 namespace lk::dnslib {
 
@@ -40,9 +41,16 @@ namespace lk::dnslib {
          * @param n The domain name associated with the record.
          * @param ttl The time-to-live for this record in seconds.
          * @param ip The IPv4 address as a standard dot-decimal notation string (e.g., "192.168.1.1").
+         * @throw std::invalid_argument If the provided IP string is not a valid IPv4 address.
          */
         ARecord(std::string n, uint32_t ttl, std::string ip) 
-            : ResourceRecord(n, 1, ttl), ipAdress(inet_addr(ip.c_str())) {}
+            : ResourceRecord(n, 1, ttl) {
+            struct in_addr addr;
+            if (inet_pton(AF_INET, ip.c_str(), &addr) != 1) {
+                throw std::invalid_argument("Invalid IPv4 address: " + ip);
+            }
+            ipAdress = addr.s_addr;
+        }
 
         /**
          * @brief Serializes the ARecord into a byte buffer in DNS wire format.
