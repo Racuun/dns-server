@@ -11,6 +11,7 @@
 #pragma once
 
 #include "ResourceRecord.hpp"
+#include "../utils/utils.hpp"
 #include <cstdint>
 #include <string>
 
@@ -37,7 +38,9 @@ namespace dnslib {
          * @param exch The domain name of the mail server.
          */
         MXRecord(std::string n, uint32_t ttl, std::uint16_t pref, std::string exch)
-            : ResourceRecord(n, 15, ttl), preference(pref), exchange(exch) {}
+            : ResourceRecord(n, 15, ttl), preference(pref), exchange(exch) {
+                utils::validateDomainName(exch);
+            }
         
         /**
          * @brief Serializes the MXRecord into a byte buffer in DNS wire format.

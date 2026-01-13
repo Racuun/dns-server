@@ -11,6 +11,7 @@
 #pragma once
 
 #include "ResourceRecord.hpp"
+#include "../utils/utils.hpp"
 
 namespace dnslib {
 
@@ -29,7 +30,9 @@ namespace dnslib {
          * @param ns The domain name of the authoritative name server.
          */
         NSRecord(std::string n, uint32_t ttl, std::string ns)
-            : ResourceRecord(n, 2, ttl), ns(ns) {}
+            : ResourceRecord(n, 2, ttl), ns(ns) {
+                utils::validateDomainName(ns);
+            }
 
         /**
          * @brief Serializes the NSRecord into a byte buffer in DNS wire format.

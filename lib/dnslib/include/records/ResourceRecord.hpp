@@ -28,7 +28,9 @@ namespace dnslib {
          * @param ttl The time-to-live value.
          */
         ResourceRecord(std::string n, uint16_t t, uint32_t ttl) 
-            : name(n), type(t), ttl(ttl) {}
+            : name(n), type(t), ttl(ttl) {
+                utils::validateDomainName(n);
+            }
 
         /**
          * @brief Destroy the Resource Record object.

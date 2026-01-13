@@ -48,4 +48,16 @@ namespace dnslib::utils {
      */
     void writeDomain(std::vector<uint8_t>& buffer, std::string name);
 
+    /**
+     * @brief Validates a domain name.
+     * 
+     * Checks if the domain name adheres to DNS standards (RFC 1035):
+     * - Total length must be <= 253 characters.
+     * - Labels must be <= 63 characters.
+     * 
+     * @param name The domain name to validate.
+     * @throw std::invalid_argument if the domain name is invalid.
+     */
+    void validateDomainName(const std::string& name);
+
 }

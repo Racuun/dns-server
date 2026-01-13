@@ -11,6 +11,7 @@
 #pragma once
 
 #include "ResourceRecord.hpp"
+#include "../utils/utils.hpp"
 
 namespace dnslib {
 
@@ -32,7 +33,9 @@ namespace dnslib {
          * @param ptr The canonical domain name associated with the IP.
          */
         PTRRecord(std::string n, uint32_t ttl, std::string ptr)
-            : ResourceRecord(n, 12, ttl), ptr(ptr) {}
+            : ResourceRecord(n, 12, ttl), ptr(ptr) {
+                utils::validateDomainName(ptr);
+            }
 
         /**
          * @brief Serializes the PTRRecord into a byte buffer in DNS wire format.

@@ -11,6 +11,7 @@
 #pragma once
 
 #include "ResourceRecord.hpp"
+#include "../utils/utils.hpp"
 
 namespace dnslib {
 
@@ -32,7 +33,9 @@ namespace dnslib {
          * @param cname The canonical (target) domain name.
          */
         CNAMERecord(std::string n, uint32_t ttl, std::string cname)
-            : ResourceRecord(n, 5, ttl), cname(cname) {}
+            : ResourceRecord(n, 5, ttl), cname(cname) {
+                utils::validateDomainName(cname);
+            }
 
         /**
          * @brief Serializes the CNAMERecord into a byte buffer in DNS wire format.

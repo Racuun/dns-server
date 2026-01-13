@@ -56,4 +56,35 @@ namespace dnslib::utils {
         buffer.push_back(0x00);
     }
 
+    void validateDomainName(const std::string& name) {
+        if (name.length() > 253) {
+            throw std::invalid_argument("Domain name too long: " + name);
+        }
+        
+        std::string tempName = name;
+        if (!tempName.empty() && tempName.back() == '.') {
+            tempName.pop_back();
+        }
+
+        size_t start = 0;
+        size_t end = 0;
+        while ((end = tempName.find('.', start)) != std::string::npos) {
+            size_t len = end - start;
+            if (len > 63) {
+                throw std::invalid_argument("Label too long in domain: " + name);
+            }
+            if (len == 0) {
+                 throw std::invalid_argument("Empty label in domain: " + name);
+            }
+            start = end + 1;
+        }
+        
+        if (start < tempName.length()) {
+            size_t len = tempName.length() - start;
+            if (len > 63) {
+                throw std::invalid_argument("Label too long in domain: " + name);
+            }
+        }
+    }
+
 }

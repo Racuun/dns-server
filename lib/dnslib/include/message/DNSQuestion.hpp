@@ -12,6 +12,7 @@
 
 #include "../interface/ISerializable.hpp"
 #include "../utils/types.hpp"
+#include "../utils/utils.hpp"
 #include <cstdint>
 #include <string>
 #include <vector>
@@ -38,7 +39,9 @@ namespace dnslib {
          * @param qclass The query class as a 16-bit integer.
          */
         DNSQuestion(std::string name, uint16_t type, uint16_t qclass)
-            : name(name), type(type), qclass(qclass) {};
+            : name(name), type(type), qclass(qclass) {
+                utils::validateDomainName(name);
+            }
 
         /**
          * @brief Constructs a new DNSQuestion object using strongly-typed enums.
@@ -50,7 +53,9 @@ namespace dnslib {
         DNSQuestion(std::string name, TYPE type, CLASS qclass)
             : name(name), 
             type(static_cast<uint16_t>(type)), 
-            qclass(static_cast<uint16_t>(qclass)) {};
+            qclass(static_cast<uint16_t>(qclass)) {
+                utils::validateDomainName(name);
+            }
         
         /**
          * @brief Serializes the DNSQuestion into DNS wire format.
