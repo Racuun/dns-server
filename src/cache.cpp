@@ -5,9 +5,11 @@
 #include <optional>
 #include <string>
 #include <vector>
+#include <mutex>
 
 
-std::optional<std::shared_ptr<std::vector<dnslib::ResourceRecord>>> TLRUCache::get(cacheKey key) {
+//std::optional<std::shared_ptr<std::vector<dnslib::ResourceRecord>>> TLRUCache::get(cacheKey key) {
+std::optional<std::shared_ptr<std::vector<std::shared_ptr<dnslib::ResourceRecord>>>> TLRUCache::get(cacheKey key) {
     auto it = cacheMap.find(key);
     if (it == cacheMap.end()) {
         return std::nullopt;
@@ -28,7 +30,8 @@ std::optional<std::shared_ptr<std::vector<dnslib::ResourceRecord>>> TLRUCache::g
     return it->second->value;
 }
 
-void TLRUCache::put(cacheKey key, std::shared_ptr<std::vector<dnslib::ResourceRecord>> value, uint32_t TTL) {
+//void TLRUCache::put(cacheKey key, std::shared_ptr<std::vector<dnslib::ResourceRecord>> value, uint32_t TTL) {
+void TLRUCache::put(cacheKey key, std::shared_ptr<std::vector<std::shared_ptr<dnslib::ResourceRecord>>> value, uint32_t TTL) {
     auto it = cacheMap.find(key);
     if (it != cacheMap.end()) {
         list.erase(it->second);
@@ -41,7 +44,7 @@ void TLRUCache::put(cacheKey key, std::shared_ptr<std::vector<dnslib::ResourceRe
     list.push_front(CacheEntry{key, value, expireTime});
     cacheMap[key] = list.begin();
 
-    if (cacheMap.size() > capacity) {
+    if (cacheMap.size() > static_cast<size_t>(capacity) /*cacheMap.size() > capacity*/) {
         auto keyToEvict = list.back().key;
         list.pop_back();
         cacheMap.erase(keyToEvict);

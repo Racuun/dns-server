@@ -8,6 +8,7 @@
 #include <unordered_map>
 #include <utility>
 #include <vector>
+#include <mutex>
 #include "dns.hpp"
 
 struct cacheKey {
@@ -31,7 +32,9 @@ struct hash<cacheKey> {
 
 struct CacheEntry {
     cacheKey key;
-    std::shared_ptr<std::vector<dnslib::ResourceRecord>> value;
+    //Tutaj zmiana - ResourceRecord jest abstrakcyjny i nie da się wywołać -> wskaźniki :)) 
+    //std::shared_ptr<std::vector<dnslib::ResourceRecord>> value;
+    std::shared_ptr<std::vector<std::shared_ptr<dnslib::ResourceRecord>>> value;
     std::chrono::steady_clock::time_point expireTime;
 };
 
@@ -46,7 +49,7 @@ class TLRUCache {
 
 private:
     int capacity;
-
+//   std::mutex mtx;
     using List = std::list<CacheEntry>;
 
     List list;
@@ -56,7 +59,13 @@ private:
 public:
     TLRUCache(int capacity) : capacity(capacity) {}
 
+    /* - zmiana ze względu na wcześniejszą zmianę w CacheEntry
     std::optional<std::shared_ptr<std::vector<dnslib::ResourceRecord>>> get(cacheKey key);
 
     void put(cacheKey key, std::shared_ptr<std::vector<dnslib::ResourceRecord>> value, uint32_t TTL);
+    */
+
+    std::optional<std::shared_ptr<std::vector<std::shared_ptr<dnslib::ResourceRecord>>>> get(cacheKey key);
+
+    void put(cacheKey key, std::shared_ptr<std::vector<std::shared_ptr<dnslib::ResourceRecord>>> value, uint32_t TTL);
 };
