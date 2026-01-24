@@ -89,6 +89,39 @@ inline void resolverWorker(
 
             else{
                 //Response handler
+                if (pending_queries.count(dnsId)){
+
+                    auto answers = packet.getAnswers();
+                    auto questions = packet.getQuestions();
+
+                    if (!answers.empty() && !questions.empty()) {
+                        auto& first_question = questions[0];
+
+                        auto cacheVec = std::make_shared<std::vector<std::shared_ptr<dnslib::ResourceRecord>>>(answers);
+                        
+                        uint32_t ttl = answers[0]->getTtl();
+                        
+                        cacheKey key;
+                        key.name = first_question.getName();
+                        key.type = first_question.getType();
+
+                        // Zapisujemy w cache
+                        dnsCache.put(key, cacheVec, ttl);
+                    }
+
+                    message.peerAddress = pending_queries[dnsId];
+                    
+                    // Usuwamy wpis z mapy (transakcja zakończona)
+                    pending_queries.erase(dnsId);
+
+                    // Wysyłamy odpowiedź do klienta
+                    outputQueue.push(std::move(message));
+
+                }
+                else {
+                    // Ignorujemy pakiety, których nie zamawialiśmy
+                    LOG_WARN("Zignorowano nieznaną odpowiedź ID: " + std::to_string(dnsId));
+                }
             }
 
            
