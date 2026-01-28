@@ -19,7 +19,7 @@ std::optional<std::shared_ptr<std::vector<std::shared_ptr<dnslib::ResourceRecord
     if (std::chrono::steady_clock::now() > it->second->expireTime) {
         list.erase(it->second);
         cacheMap.erase(it);
-        LOG_DEBUG("Cache entry expired: " + std::to_string(key.type) + ":"+ key.name);
+        DNS_LOG_DEBUG("Cache entry expired: " + std::to_string(key.type) + ":"+ key.name);
         return std::nullopt;
     }
 

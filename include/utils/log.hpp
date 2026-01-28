@@ -6,6 +6,7 @@
 #include <sstream>
 #include <string>
 #include <thread>
+#include <syslog.h>
 
 #define SD_EMERG   "<0>"
 #define SD_ALERT   "<1>"
@@ -48,10 +49,31 @@ namespace logtargets {
         }
     };
 
+    class SyslogLog : public ILOG {
+    public:
+        SyslogLog(const std::string& ident) {
+            openlog(ident.c_str(), LOG_PID | LOG_CONS, LOG_DAEMON);
+        }
+        ~SyslogLog() {
+            closelog();
+        }
+        void log(LogLevel level, const std::string& message) override {
+            int priority = LOG_INFO;
+            switch (level) {
+                case utils::LogLevel::ERROR: priority = LOG_ERR; break;
+                case utils::LogLevel::WARN:  priority = LOG_WARNING; break;
+                case utils::LogLevel::INFO:  priority = LOG_INFO; break;
+                case utils::LogLevel::DEBUG: priority = LOG_DEBUG; break;
+            }
+            syslog(priority, "%s", message.c_str());
+        }
+    };
+
 }
 
 #define TARGET_SYTSTEMD std::make_shared<utils::logtargets::SystemdLog>()
 #define TARGET_CONSOLE std::make_shared<utils::logtargets::ConsoleLog>()
+#define TARGET_SYSLOG(ident) std::make_shared<utils::logtargets::SyslogLog>(ident)
 
 class Logger {
 private:
@@ -97,7 +119,7 @@ public:
 }
 
 
-#define LOG_ERR(msg) utils::Logger::get().log(utils::LogLevel::ERROR, msg)
-#define LOG_WARN(msg) utils::Logger::get().log(utils::LogLevel::WARN, msg)
-#define LOG_INFO(msg) utils::Logger::get().log(utils::LogLevel::INFO, msg)
-#define LOG_DEBUG(msg) utils::Logger::get().log(utils::LogLevel::DEBUG, msg)
+#define DNS_LOG_ERR(msg) utils::Logger::get().log(utils::LogLevel::ERROR, msg)
+#define DNS_LOG_WARN(msg) utils::Logger::get().log(utils::LogLevel::WARN, msg)
+#define DNS_LOG_INFO(msg) utils::Logger::get().log(utils::LogLevel::INFO, msg)
+#define DNS_LOG_DEBUG(msg) utils::Logger::get().log(utils::LogLevel::DEBUG, msg)
