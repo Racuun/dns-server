@@ -55,7 +55,7 @@ inline void resolverWorker(
                     //Hit in cache
                     // 4. If address is known serialize and put to queue
                     if(cached_response.has_value()){
-                        LOG_INFO("Cache HIT for: " + key.name);
+                        DNS_LOG_INFO("Cache HIT for: " + key.name);
 
                         dnslib::PacketBuilder builder;
                         builder.setId(packet.getHeader().getId());
@@ -77,7 +77,7 @@ inline void resolverWorker(
 
                     //MISS in cache
                     else{
-                        LOG_INFO("Cache MISS: " + key.name + " -> Forwarding to 8.8.8.8");
+                        DNS_LOG_INFO("Cache MISS: " + key.name + " -> Forwarding to 8.8.8.8");
 
                         pending_queries[dnsId] = message.peerAddress;
 
@@ -120,7 +120,7 @@ inline void resolverWorker(
                 }
                 else {
                     // Ignorujemy pakiety, których nie zamawialiśmy
-                    LOG_WARN("Zignorowano nieznaną odpowiedź ID: " + std::to_string(dnsId));
+                    DNS_LOG_WARN("Zignorowano nieznaną odpowiedź ID: " + std::to_string(dnsId));
                 }
             }
 
@@ -131,7 +131,7 @@ inline void resolverWorker(
             //outputQueue.push(std::move(output));
 
         } catch (const std::exception& e) {
-            LOG_ERR("Error " + std::string(e.what()));
+            DNS_LOG_ERR("Error " + std::string(e.what()));
         }
     }
 
