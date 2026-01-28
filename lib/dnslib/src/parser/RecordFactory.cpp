@@ -43,8 +43,15 @@ namespace dnslib {
                 record = std::make_shared<MXRecord>(name, ttl, pref, exch);
                 break;
             }
-            default:
+            default: {
+                std::vector<uint8_t> data;
+                data.reserve(rdlength);
+                for (int i = 0; i < rdlength; ++i) {
+                    data.push_back(reader.readU8());
+                }
+                record = std::make_shared<UnknownRecord>(name, static_cast<uint16_t>(type), ttl, data);
                 break;
+            }
         }
 
         reader.setPosition(expectedEnd);

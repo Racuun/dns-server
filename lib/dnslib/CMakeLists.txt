@@ -33,6 +33,7 @@ if(BUILD_TESTING)
 
   # 3. Link your library and GTest
   target_link_libraries(dns_tests PRIVATE dnslib gtest_main)
+  target_link_libraries(dnslib PRIVATE gtest)
 
   # 4. Enable test discovery in CTest
   include(GoogleTest)
