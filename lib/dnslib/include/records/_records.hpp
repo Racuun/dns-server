@@ -17,3 +17,4 @@
 #include "CNAMERecord.hpp"
 #include "PTRRecord.hpp"
 #include "MXRecord.hpp"
+#include "UnknownRecord.hpp"
