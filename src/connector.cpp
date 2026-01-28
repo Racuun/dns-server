@@ -14,6 +14,8 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <vector>
+#include <cstring>
+#include <cerrno>
 
 
 void setNonBlocking(int sockfd) {
@@ -27,6 +29,11 @@ void networkThread(int port,
 ) {
 
     int sockfd = socket(AF_INET, SOCK_DGRAM, 0);
+    if (sockfd < 0) {
+        DNS_LOG_ERR("Socket creation failed: " + std::string(strerror(errno)));
+        exit(EXIT_FAILURE);
+    }
+
     setNonBlocking(sockfd);
 
     sockaddr_in serverAddr{};
@@ -36,8 +43,11 @@ void networkThread(int port,
 
     auto _bind = bind(sockfd, (sockaddr*)&serverAddr, sizeof(serverAddr));
     if (_bind < 0) {
-        LOG_ERR("Bind failed!");
-        return;
+        DNS_LOG_ERR("Bind failed on port " + std::to_string(port) + ": " + std::string(strerror(errno)));
+        if (errno == EACCES) {
+            DNS_LOG_ERR("Privileged port (53) requires root/sudo.");
+        }
+        exit(EXIT_FAILURE);
     }
 
     // Regiser epoll for input on udp
@@ -47,8 +57,8 @@ void networkThread(int port,
     ev.data.fd = sockfd;
     auto _epoll_ctl = epoll_ctl(epollfd, EPOLL_CTL_ADD, sockfd, &ev);
     if (_epoll_ctl == -1) {
-        LOG_ERR("Epoll ctl failed!");
-        return;
+        DNS_LOG_ERR("Epoll ctl failed (sockfd): " + std::string(strerror(errno)));
+        exit(EXIT_FAILURE);
     }
 
     // Register epoll for output ready in queue
@@ -57,11 +67,11 @@ void networkThread(int port,
     ev.data.fd = qFd;
     _epoll_ctl = epoll_ctl(epollfd, EPOLL_CTL_ADD, qFd, &ev);
     if (_epoll_ctl == -1) {
-        LOG_ERR("Epoll ctl failed!");
-        return;
+        DNS_LOG_ERR("Epoll ctl failed (queue): " + std::string(strerror(errno)));
+        exit(EXIT_FAILURE);
     }
 
-    LOG_INFO("Started UDP on socket " + std::to_string(sockfd) + " port " + std::to_string(port));
+    DNS_LOG_INFO("Started UDP on socket " + std::to_string(sockfd) + " port " + std::to_string(port));
 
     while (true) {
         // timeout
