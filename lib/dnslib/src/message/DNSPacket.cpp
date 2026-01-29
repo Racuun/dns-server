@@ -11,6 +11,12 @@ namespace dnslib {
         for (const auto& answer : answers) {
             answer->serialize(buff);
         }
+        for (const auto& record : authority) {
+            record->serialize(buff);
+        }
+        for (const auto& record : additional) {
+            record->serialize(buff);
+        }
     }
 
     std::string DNSPacket::toString() const {
@@ -26,6 +32,18 @@ namespace dnslib {
         }
         for (const auto& answer : answers) {
             log += "\n" + answer->toString();
+        }
+        if (!authority.empty()) {
+            log += "\nAuthority:";
+        }
+        for (const auto& record : authority) {
+            log += "\n" + record->toString();
+        }
+        if (!additional.empty()) {
+            log += "\nAdditional:";
+        }
+        for (const auto& record : additional) {
+            log += "\n" + record->toString();
         }
 
         return log;

@@ -8,7 +8,7 @@ namespace dnslib {
     std::shared_ptr<ResourceRecord> RecordFactory::create(utils::ByteReader& reader) {
         std::string name = reader.readDomain();
         TYPE type = static_cast<TYPE>(reader.readU16());
-        uint16_t rclass = reader.readU16();
+        reader.readU16(); // skip class
         uint32_t ttl = reader.readU32();
         uint16_t rdlength = reader.readU16();
 

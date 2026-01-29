@@ -27,7 +27,7 @@ namespace dnslib {
         for (int i=0; i<qdCount; i++) {
             std::string name = reader.readDomain();
             TYPE type = static_cast<TYPE>(reader.readU16());
-            uint16_t qclass = reader.readU16();
+            reader.readU16(); // skip class
 
             builder.addQuestion(name, type);
         }
@@ -38,13 +38,13 @@ namespace dnslib {
         }
 
         for (int i=0; i<auCount; i++) {
-            // auto record = RecordFactory::create(reader);
-            // builder.addAuthority(record);
+            auto record = RecordFactory::create(reader);
+            builder.addAuthority(record);
         }
 
         for (int i=0; i<arCount; i++) {
-            // auto record = RecordFactory::create(reader);
-            // builder.addAdditional(record);
+            auto record = RecordFactory::create(reader);
+            builder.addAdditional(record);
         }
 
         return builder.build();
