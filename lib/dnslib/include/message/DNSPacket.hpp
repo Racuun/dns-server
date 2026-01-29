@@ -33,6 +33,8 @@ namespace dnslib {
         std::vector<DNSQuestion> questions;
         
         std::vector<std::shared_ptr<ResourceRecord>> answers;
+        std::vector<std::shared_ptr<ResourceRecord>> authority;
+        std::vector<std::shared_ptr<ResourceRecord>> additional;
     public:
         /**
          * @brief Default constructor for a new DNSPacket object.
@@ -79,6 +81,12 @@ namespace dnslib {
          * @return const std::vector<std::shared_ptr<ResourceRecord>>& A reference to the list of answers.
          */
         const std::vector<std::shared_ptr<ResourceRecord>>& getAnswers() const { return answers; }
+
+        const std::vector<std::shared_ptr<ResourceRecord>>& getAuthority() const { return authority; }
+
+        const std::vector<std::shared_ptr<ResourceRecord>>& getAdditional() const { return additional; }
+
+
     };
 
 }

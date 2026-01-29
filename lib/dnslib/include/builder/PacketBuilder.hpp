@@ -143,6 +143,22 @@ namespace dnslib {
         PacketBuilder& addAnswer(std::shared_ptr<ResourceRecord> record);
 
         /**
+         * @brief Adds an authority resource record to the DNS packet.
+         * 
+         * @param record A shared pointer to a ResourceRecord object.
+         * @return A reference to the PacketBuilder for method chaining.
+         */
+        PacketBuilder& addAuthority(std::shared_ptr<ResourceRecord> record);
+
+        /**
+         * @brief Adds an additional resource record to the DNS packet.
+         * 
+         * @param record A shared pointer to a ResourceRecord object.
+         * @return A reference to the PacketBuilder for method chaining.
+         */
+        PacketBuilder& addAdditional(std::shared_ptr<ResourceRecord> record);
+
+        /**
          * @brief Sets the expected number of answer records.
          * This is typically used for responses.
          * 

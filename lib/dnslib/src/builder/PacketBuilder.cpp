@@ -49,6 +49,17 @@ namespace dnslib {
         return *this;
     }
 
+    PacketBuilder& PacketBuilder::addAuthority(std::shared_ptr<ResourceRecord> record) {
+        packet.authority.push_back(record);
+        packet.header.auCount++;
+        return *this;
+    }
+
+    PacketBuilder& PacketBuilder::addAdditional(std::shared_ptr<ResourceRecord> record) {
+        packet.additional.push_back(record);
+        packet.header.arCount++;
+        return *this;
+    }
 
 
     PacketBuilder& PacketBuilder::expectedAnswers(size_t count) {
